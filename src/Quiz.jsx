@@ -6,10 +6,10 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { darcula } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 export default function Quiz() {
-    
+  
+  const [emailSent, setEmailSent] = useState(false);
   const [topicIdx, setTopicIdx] = useState(0);
   const [qIdx, setQIdx] = useState(0);
-  const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   // Guardar respuestas seleccionadas: [{topic, qIdx, selected, correctIdx}]
   const [answers, setAnswers] = useState([]);
@@ -63,7 +63,6 @@ export default function Quiz() {
         correctIdx: newCorrectIdx
       }
     ]);
-    if (isCorrect) setScore((s) => s + 1);
     setSelectedOpt(null);
     if (qIdx < topic.items.length - 1) {
       setQIdx(qIdx + 1);
@@ -75,17 +74,16 @@ export default function Quiz() {
     }
   }
 
-  if (showResult) {
-    // Generar resumen de resultados y recomendaciones
-    const buenas = answers.filter(a => a.selected === a.correctIdx);
-    const malas = answers.filter(a => a.selected !== a.correctIdx);
-    const resumen = `Respuestas correctas: ${buenas.length} de ${totalQuestions}`;
-    const detalle = answers.map((a, i) => `Pregunta ${i + 1}: ${a.question}\nTu respuesta: ${a.options[a.selected]}\nRespuesta correcta: ${a.options[a.correctIdx]}\n`).join('\n');
-    const recomendaciones = malas.map((a, i) => `Pregunta: ${a.question}\nRecomendación: ${a.options[a.correctIdx]}\n`).join('\n');
 
-    // Enviar correo solo una vez al mostrar el resultado
-    useEffect(() => {
-      // Puedes pedir el nombre/email al usuario si lo deseas
+  // Generar resumen de resultados y recomendaciones (siempre definido)
+  const buenas = answers.filter(a => a.selected === a.correctIdx);
+  const malas = answers.filter(a => a.selected !== a.correctIdx);
+  const resumen = `Respuestas correctas: ${buenas.length} de ${totalQuestions}`;
+  const detalle = answers.map((a, i) => `Pregunta ${i + 1}: ${a.question}\nTu respuesta: ${a.options[a.selected]}\nRespuesta correcta: ${a.options[a.correctIdx]}\n`).join('\n');
+  const recomendaciones = malas.map((a, i) => `Pregunta: ${a.question}\nRecomendación: ${a.options[a.correctIdx]}\n`).join('\n');
+
+  useEffect(() => {
+    if (showResult && !emailSent) {
       const templateParams = {
         name: 'Usuario',
         title: 'Resultado Quiz',
@@ -94,10 +92,10 @@ export default function Quiz() {
         time: new Date().toLocaleString()
       };
       emailjs.send(
-        'service_aipxqje',
-        'template_e40pgr7',
+        'TU_SERVICE_ID',
+        'TU_TEMPLATE_ID',
         templateParams,
-        'I4kH_mUf_ybh1i4qz'
+        'TU_PUBLIC_KEY'
       ).then(
         (result) => {
           // Opcional: mostrar confirmación
@@ -107,14 +105,17 @@ export default function Quiz() {
           console.error('Error al enviar correo', error.text);
         }
       );
-    }, []); // Solo una vez
+      setEmailSent(true);
+    }
+  }, [showResult, emailSent, resumen, detalle, recomendaciones]);
 
+  if (showResult) {
     const handleRestart = () => {
       setTopicIdx(0);
       setQIdx(0);
-      setScore(0);
       setShowResult(false);
       setAnswers([]);
+      setEmailSent(false);
     };
     return (
       <div className="perf-result-layout">
@@ -123,6 +124,9 @@ export default function Quiz() {
           <h2 className="perf-result-title">¡Quiz finalizado!</h2>
           <p className="mb-6" style={{ color: '#231F20', fontSize: '1.1rem' }}>
             {resumen}
+          </p>
+          <p className="mb-6" style={{ color: '#231F20', fontSize: '1.1rem', fontWeight: 700 }}>
+            Preguntas correctas: <span style={{ color: '#E4002B' }}>{buenas.length}</span> de {totalQuestions}
           </p>
         </div>
         {/* Sección 2: Resumen de respuestas con scroll infinito */}
