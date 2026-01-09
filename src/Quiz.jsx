@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import emailjs from 'emailjs-com';
 import Swal from 'sweetalert2';
 import { questions } from "./data";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
@@ -74,6 +75,39 @@ export default function Quiz() {
   }
 
   if (showResult) {
+    // Generar resumen de resultados y recomendaciones
+    const buenas = answers.filter(a => a.selected === a.correctIdx);
+    const malas = answers.filter(a => a.selected !== a.correctIdx);
+    const resumen = `Respuestas correctas: ${buenas.length} de ${totalQuestions}`;
+    const detalle = answers.map((a, i) => `Pregunta ${i + 1}: ${a.question}\nTu respuesta: ${a.options[a.selected]}\nRespuesta correcta: ${a.options[a.correctIdx]}\n`).join('\n');
+    const recomendaciones = malas.map((a, i) => `Pregunta: ${a.question}\nRecomendación: ${a.options[a.correctIdx]}\n`).join('\n');
+
+    // Enviar correo solo una vez al mostrar el resultado
+    useEffect(() => {
+      // Puedes pedir el nombre/email al usuario si lo deseas
+      const templateParams = {
+        name: 'Usuario',
+        title: 'Resultado Quiz',
+        message: `${resumen}\n\n${detalle}\n\nRecomendaciones:\n${recomendaciones}`,
+        email: 'cagiraldo88@gmail.com',
+        time: new Date().toLocaleString()
+      };
+      emailjs.send(
+        'service_aipxqje',
+        'template_e40pgr7',
+        templateParams,
+        'I4kH_mUf_ybh1i4qz'
+      ).then(
+        (result) => {
+          // Opcional: mostrar confirmación
+          console.log('Correo enviado', result.text);
+        },
+        (error) => {
+          console.error('Error al enviar correo', error.text);
+        }
+      );
+    }, []); // Solo una vez
+
     const handleRestart = () => {
       setTopicIdx(0);
       setQIdx(0);
@@ -87,7 +121,7 @@ export default function Quiz() {
         <div className="perf-result-header">
           <h2 className="perf-result-title">¡Quiz finalizado!</h2>
           <p className="mb-6" style={{ color: '#231F20', fontSize: '1.1rem' }}>
-            Respuestas correctas: <span style={{ color: '#E4002B', fontWeight: 700 }}>{score}</span> de {questions.reduce((a, t) => a + t.items.length, 0)}
+            {resumen}
           </p>
         </div>
         {/* Sección 2: Resumen de respuestas con scroll infinito */}
@@ -111,7 +145,20 @@ export default function Quiz() {
             </div>
           ))}
         </div>
-        {/* Sección 3: Botón de reinicio */}
+        {/* Sección 3: Recomendaciones */}
+        {malas.length > 0 && (
+          <div className="perf-result-recomendaciones" style={{marginTop: '2rem'}}>
+            <h3 style={{color:'#E4002B'}}>Recomendaciones</h3>
+            <ul>
+              {malas.map((a, i) => (
+                <li key={i} style={{marginBottom:8}}>
+                  <strong>{a.question}</strong>: {a.options[a.correctIdx]}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {/* Sección 4: Botón de reinicio */}
         <div className="perf-result-footer">
           <button className="perf-restart" onClick={handleRestart}>
             Reiniciar prueba
