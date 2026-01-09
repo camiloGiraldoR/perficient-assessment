@@ -50,7 +50,8 @@ export default function Quiz() {
       customClass: {
         popup: 'perf-modal',
         confirmButton: 'perf-modal-btn'
-      }
+      },
+      allowOutsideClick: false
     });
     setAnswers((prev) => [
       ...prev,
