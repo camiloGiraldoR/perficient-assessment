@@ -102,6 +102,7 @@
 }
 body, html {
   background: #F5F5F5;
+  color: #231F20;
   min-height: 100vh;
   font-family: 'Segoe UI', 'Arial', sans-serif;
 }

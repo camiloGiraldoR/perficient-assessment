@@ -5,7 +5,7 @@
 
 export const questions = [
   {
-    topic: "conceptos java 21 +",
+    topic: "Java",
     items: [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000001",
@@ -51,7 +51,115 @@ export const questions = [
         answer: 1,
         descripcion: "Un Record en Java es una clase inmutable y transparente que actúa como portadora de datos, generando automáticamente métodos como equals, hashCode y toString.",
         recomendacion: "Revisa la sintaxis de los Records, sus ventajas y limitaciones, y cómo se diferencian de las clases tradicionales."
-      }
+      },
+      {
+        id: "250e39d6-8a7d-41f9-821a-b75698f2ff62",
+        type: "THEORY",
+        question: "¿Qué clase usarías para representar una fecha sin zona horaria?",
+        options: ["java.util.Date", "java.time.LocalDate", "java.time.ZonedDateTime"],
+        answer: 1,
+        descripcion: "LocalDate representa una fecha sin hora ni zona horaria.",
+        recomendacion: "Revisa la API java.time y diferencias entre LocalDate/LocalDateTime/ZonedDateTime."
+      },
+      {
+        id: "73213ce0-d3e5-4388-8bab-32a4e691800f",
+        type: "THEORY",
+        question: "¿Cómo obtienes la diferencia en días entre dos LocalDate?",
+        options: ["Period.between(a,b).getDays()", "Duration.between(a,b).toDays()", "ChronoUnit.DAYS.between(a,b)"],
+        answer: 2,
+        descripcion: "ChronoUnit.DAYS.between(a,b) calcula el número total de días.",
+        recomendacion: "Practica con ChronoUnit y Period."
+      },
+      {
+        id: "d9938cfe-1b8d-42df-a564-d74554d6299b",
+        type: "THEORY",
+        question: "¿Qué requiere una interfaz para usarse con una lambda?",
+        options: ["Ser una interfaz funcional con un único método abstracto", "Extender Callable", "Anotarse con @Lambda"],
+        answer: 0,
+        descripcion: "Las lambdas requieren interfaces funcionales.",
+        recomendacion: "Usa @FunctionalInterface para señalarlas."
+      },
+      {
+        id: "7fc9acf2-94f8-474a-9a36-965ba4132d10",
+        type: "THEORY",
+        question: "¿Qué implica que una variable sea effectively final en una lambda?",
+        options: ["Puede capturarse si su referencia no cambia", "Debe ser estática", "No puede usarse en streams"],
+        answer: 0,
+        descripcion: "Las lambdas sólo capturan variables cuyo valor de referencia no cambia.",
+        recomendacion: "Revisa captura de variables en lambdas."
+      },
+      {
+        id: "96bc4711-cbf1-4293-9011-53ce19c6972d",
+        type: "THEORY",
+        question: "¿Buena práctica con excepciones chequeadas?",
+        options: ["Declararlas o manejarlas cerca del origen", "Ignorarlas con //NOSONAR", "Convertirlas siempre a RuntimeException sin causa"],
+        answer: 0,
+        descripcion: "Manejar/declarar cerca del origen mantiene la claridad.",
+        recomendacion: "Revisa throws, try/catch y wrapping preservando cause."
+      },
+      {
+        id: "801b6697-8b7e-439d-8ed5-844339476f4a",
+        type: "THEORY",
+        question: "¿Qué bloque se ejecuta siempre?",
+        options: ["catch", "finally", "synchronized"],
+        answer: 1,
+        descripcion: "finally se ejecuta incluso si hay return o excepción.",
+        recomendacion: "Practica try/finally y try-with-resources."
+      },
+      {
+        id: "94fbb6a2-4323-49a1-a2a0-6fd2ae6877ea",
+        type: "THEORY",
+        question: "¿Qué principio promueve exponer comportamiento y ocultar estado?",
+        options: ["Encapsulamiento", "Herencia", "Polimorfismo"],
+        answer: 0,
+        descripcion: "El encapsulamiento oculta estado interno y expone operaciones controladas.",
+        recomendacion: "Repasa encapsulación vs composición."
+      },
+      {
+        id: "91ee9675-7a25-47ff-8a4d-cfb6aea76d19",
+        type: "THEORY",
+        question: "Para reutilización, ¿qué se recomienda?",
+        options: ["Composición sobre herencia", "Herencia múltiple de clases", "Campos públicos compartidos"],
+        answer: 0,
+        descripcion: "La composición favorece bajo acoplamiento.",
+        recomendacion: "Prefiere composición y patrones como Strategy."
+      },
+      {
+        id: "84f8ac86-c1fe-48f0-9e7e-ce8d9c7c7593",
+        type: "THEORY",
+        question: "En QueryDSL, ¿qué es una clase QEntidad?",
+        options: ["Metaclase generada para consultas type-safe", "Entidad gestionada en runtime", "Un DTO automático"],
+        answer: 0,
+        descripcion: "Q* son metamodelos generados para construir predicados.",
+        recomendacion: "Configura APT y usa JPAQueryFactory."
+      },
+      {
+        id: "58eb8147-e9bc-4ce9-929b-2468b4a7d453",
+        type: "THEORY",
+        question: "Ventaja de TypedQuery/Criteria frente a JPQL con strings?",
+        options: ["Chequeo de tipos en compilación y refactors más seguros", "Mayor rendimiento garantizado", "Evitar transacciones"],
+        answer: 0,
+        descripcion: "Las APIs tipadas aportan seguridad y mejor soporte a refactors.",
+        recomendacion: "Compara JPQL, Criteria, QueryDSL."
+      },
+      {
+        id: "cc422feb-abc8-43df-8dec-66ea76b25019",
+        type: "THEORY",
+        question: "Riesgo común de LAZY al serializar entidades?",
+        options: ["LazyInitializationException y cargas N+1 fuera del contexto", "Bloqueo pesimista por defecto", "Pérdida de caché de segundo nivel"],
+        answer: 0,
+        descripcion: "Acceso LAZY fuera del contexto provoca excepciones y N+1.",
+        recomendacion: "Usa fetch join y DTOs."
+      },
+      {
+        id: "5c1cc32d-d7fd-4b15-aa72-ef59e830229e",
+        type: "THEORY",
+        question: "¿Cuándo usar EAGER?",
+        options: ["Cuando el dato se usa casi siempre con la entidad", "Siempre en colecciones grandes", "Para evitar transacciones"],
+        answer: 0,
+        descripcion: "EAGER es razonable cuando el dato es necesario casi siempre.",
+        recomendacion: "Evalúa carga y rendimiento."
+      },
     ]
   },
   {
@@ -101,7 +209,7 @@ export const questions = [
         answer: 1,
         descripcion: "La principal ventaja de los Virtual Threads es que permiten manejar una gran cantidad de tareas que esperan por I/O usando muy poca memoria, facilitando la escalabilidad.",
         recomendacion: "Estudia casos de uso donde los Virtual Threads mejoran la escalabilidad y el consumo de recursos en aplicaciones Java."
-      }
+      },
     ]
   },
   {
@@ -151,7 +259,7 @@ export const questions = [
         answer: 1,
         descripcion: "El 'Context Switching' es el costo que incurre el sistema operativo al alternar entre hilos pesados, lo que afecta el rendimiento en modelos síncronos. Los modelos asíncronos o con virtual threads minimizan este costo.",
         recomendacion: "Estudia cómo funciona el context switching y por qué los modelos asíncronos y virtual threads son más eficientes en escenarios de alta concurrencia."
-      }
+      },
     ]
   },
   {
@@ -201,7 +309,34 @@ export const questions = [
         answer: 0,
         descripcion: "Hibernate utiliza el mecanismo de Dirty Checking para detectar cambios en las entidades y sincronizarlos automáticamente con la base de datos al hacer commit.",
         recomendacion: "Investiga cómo funciona el Dirty Checking en Hibernate y cómo optimiza la persistencia de datos."
-      }
+      },
+      {
+        id: "f363e152-37e7-4092-ab58-4ebe27b5db49",
+        type: "THEORY",
+        question: "¿Qué hace @Component en Spring?",
+        options: ["Marca una clase como candidata a escaneo y registro en el contenedor", "Obliga a la clase a ser singleton final", "Expone automáticamente un endpoint HTTP"],
+        answer: 0,
+        descripcion: "@Component indica que Spring debe detectar y registrar el bean.",
+        recomendacion: "Revisa estereotipos y component scan."
+      },
+      {
+        id: "ccf8b331-24a2-4190-854e-077aae61e34a",
+        type: "THEORY",
+        question: "¿Cuándo usarías @Service en lugar de @Component?",
+        options: ["Para semántica de capa de negocio y claridad arquitectónica", "Para habilitar transacciones por defecto", "Para crear repositorios CRUD"],
+        answer: 0,
+        descripcion: "@Service es un estereotipo semántico de negocio; funcionalmente es @Component.",
+        recomendacion: "Usa estereotipos para comunicar intención."
+      },
+      {
+        id: "c398fe8b-8d4c-4904-88dd-50f1db625d94",
+        type: "THEORY",
+        question: "¿Qué aporta @Repository además de ser un componente?",
+        options: ["Traducción de excepciones a DataAccessException", "Generación automática de SQL", "Habilita cacheo por anotación"],
+        answer: 0,
+        descripcion: "@Repository traduce excepciones del proveedor a una jerarquía unificada.",
+        recomendacion: "Revisa @Repository y DataAccessException."
+      },
     ]
   },
   {
@@ -251,7 +386,7 @@ export const questions = [
         answer: 1,
         descripcion: "PKCE (Proof Key for Code Exchange) mitiga ataques de interceptación del código de autorización en flujos OAuth2, añadiendo una capa extra de seguridad especialmente en aplicaciones públicas.",
         recomendacion: "Revisa cómo funciona PKCE y cómo se implementa en flujos OAuth2 y OIDC modernos."
-      }
+      },
     ]
   },
   {
@@ -301,7 +436,43 @@ export const questions = [
         answer: 1,
         descripcion: "El 'Vendor Lock-in' es la dependencia excesiva de los servicios de un solo proveedor cloud, dificultando la migración a otras plataformas.",
         recomendacion: "Estudia estrategias para evitar el vendor lock-in y promover la portabilidad en la nube."
-      }
+      },
+      {
+        id: "97472840-bfbf-4bec-8b40-aab8950d1dc8",
+        type: "THEORY",
+        question: "¿Qué aísla principalmente un contenedor?",
+        options: ["Procesos y filesystem mediante namespaces y cgroups", "Una VM completa con hipervisor propio", "Solo la red, no el FS"],
+        answer: 0,
+        descripcion: "Contenedores aíslan procesos/recursos usando namespaces/cgroups.",
+        recomendacion: "Compara contenedores vs VMs."
+      },
+      {
+        id: "736ec340-4c04-4a8b-bae4-e8638d81be7a",
+        type: "THEORY",
+        question: "¿Qué caracteriza a un servicio Lambda en la nube (FaaS)?",
+        options: ["Ejecución bajo demanda con escalado automático por evento", "Servidores dedicados con asignación fija", "Procesamiento batch exclusivamente nocturno"],
+        answer: 0,
+        descripcion: "FaaS ejecuta funciones por evento y escala automáticamente.",
+        recomendacion: "Compara FaaS vs PaaS/containers."
+      },
+      {
+        id: "a65d3f95-b94d-4184-b375-19361ecb9ef1",
+        type: "THEORY",
+        question: "Para escalar lecturas de BD en la nube, ¿qué táctica es común?",
+        options: ["Réplicas de solo lectura con balanceo", "Desactivar índices para acelerar inserts", "Evitar cachés por consistencia"],
+        answer: 0,
+        descripcion: "Las réplicas distribuyen la carga de consultas.",
+        recomendacion: "Revisa replicación, particionado y cachés."
+      },
+      {
+        id: "f9dad161-f28b-4a15-89e1-3465a33321c4",
+        type: "THEORY",
+        question: "Práctica clave de monitoreo en la nube:",
+        options: ["Recolectar métricas, logs y trazas con alertas basadas en SLOs", "Revisar logs solo tras incidentes", "Usar printf en producción"],
+        answer: 0,
+        descripcion: "Observabilidad integra métricas, logs y trazas con umbrales/SLOs.",
+        recomendacion: "Guías de observabilidad y herramientas."
+      },
     ]
   },
   {
@@ -370,7 +541,57 @@ public interface Operacion {
         answer: 2,
         descripcion: "Predicate es la interfaz funcional utilizada para funciones que reciben un valor y devuelven un booleano, común en operaciones de filtrado.",
         recomendacion: "Estudia la interfaz Predicate y su uso en métodos como filter en streams de Java."
-      }
+      },
+      {
+        id: "6e760523-849c-40ea-86d6-c70494a3d2b8",
+        type: "THEORY",
+        question: "¿Diferencia clave entre PF y POO?",
+        options: ["PF favorece inmutabilidad/funciones puras; POO modela objetos con estado", "POO no permite composición de funciones", "PF requiere threads dedicados"],
+        answer: 0,
+        descripcion: "PF evita efectos secundarios e inmutabilidad; POO gestiona estado/behaviour.",
+        recomendacion: "Compara objetos vs funciones puras."
+      },
+      {
+        id: "6c3302a5-ace1-44c7-ab68-b534ef41c64f",
+        type: "THEORY",
+        question: "¿Qué es una Higher-Order Function?",
+        options: ["Función que recibe y/o devuelve funciones", "Función con prioridad alta de ejecución", "Método estático del cargador de clases"],
+        answer: 0,
+        descripcion: "HOF trata funciones como valores, habilita composición y abstracción.",
+        recomendacion: "Practica con Function y Predicate."
+      },
+    ]
+  },
+  {
+    topic: "programación reactiva",
+    items: [
+      {
+        id: "a56c92f7-f633-4675-9208-967c3ebe95f2",
+        type: "THEORY",
+        question: "¿Diferencia principal entre programación reactiva y POO tradicional?",
+        options: ["Reactiva se centra en flujos asíncronos y propagación no bloqueante", "POO no permite concurrencia", "Reactiva exige herencia múltiple"],
+        answer: 0,
+        descripcion: "Reactiva modela flujos asíncronos con backpressure; POO modela objetos/estado.",
+        recomendacion: "Revisa Reactive Streams y Project Reactor."
+      },
+      {
+        id: "be4f767f-afaf-4775-837f-5361c1e3dcd3",
+        type: "THEORY",
+        question: "¿Qué es backpressure?",
+        options: ["Mecanismo para que el consumidor regule la velocidad del productor", "Patrón de reintento con jitter", "Técnica de serialización binaria"],
+        answer: 0,
+        descripcion: "Evita sobrecarga señalando demanda del consumidor.",
+        recomendacion: "Estudia protocolo Reactive Streams."
+      },
+      {
+        id: "1ca3c854-b580-4397-87bf-8b96fb83d3cf",
+        type: "THEORY",
+        question: "En Reactor, ¿diferencia Mono vs Flux?",
+        options: ["Mono produce 0..1 elementos; Flux 0..N", "Mono es síncrono; Flux asíncrono", "Flux solo emite errores"],
+        answer: 0,
+        descripcion: "Mono representa un resultado único opcional; Flux secuencias múltiples.",
+        recomendacion: "Elige Mono vs Flux según cardinalidad."
+      },
     ]
   },
   {
@@ -420,7 +641,7 @@ public interface Operacion {
         answer: 1,
         descripcion: "Decorator añade responsabilidades dinámicamente a un objeto, mientras que Proxy controla el acceso o añade lógica adicional al interactuar con el objeto real.",
         recomendacion: "Estudia los patrones Decorator y Proxy, y revisa ejemplos para entender sus diferencias y aplicaciones."
-      }
+      },
     ]
   },
   {
@@ -470,7 +691,25 @@ public interface Operacion {
         answer: 1,
         descripcion: "Event Sourcing persiste el estado de un objeto como una secuencia de eventos inmutables, permitiendo reconstruir el estado y auditar cambios.",
         recomendacion: "Estudia el patrón Event Sourcing y revisa ejemplos de su implementación en sistemas distribuidos."
-      }
+      },
+      {
+        id: "cd5794bd-75fa-433e-ab05-d41856f8e449",
+        type: "THEORY",
+        question: "¿Qué ventaja aporta la mensajería en microservicios?",
+        options: ["Desacoplamiento temporal y suavizado de picos con colas/topics", "Menor latencia que memoria compartida", "Elimina la necesidad de idempotencia"],
+        answer: 0,
+        descripcion: "La mensajería desacopla productores/consumidores y nivelan picos.",
+        recomendacion: "Compara colas, topics y publish/subscribe."
+      },
+      {
+        id: "6a0f4ef5-e7ce-428e-8220-72de0d1175ba",
+        type: "THEORY",
+        question: "Un API Gateway con routing por reglas permite…",
+        options: ["Dirigir tráfico por versión/ruta/cabeceras hacia distintos servicios", "Evitar TLS en los servicios", "Compilar clientes nativos automáticamente"],
+        answer: 0,
+        descripcion: "Aplica políticas y enruta peticiones según reglas.",
+        recomendacion: "Revisa canary y blue/green con gateways."
+      },
     ]
   },
   {
@@ -520,7 +759,7 @@ public interface Operacion {
         answer: 1,
         descripcion: "La Arquitectura Hexagonal desacopla el núcleo de negocio de las tecnologías externas, facilitando la prueba y evolución del sistema.",
         recomendacion: "Estudia la Arquitectura Hexagonal y revisa ejemplos de implementación en proyectos Java."
-      }
+      },
     ]
   },
   {
@@ -570,7 +809,52 @@ public interface Operacion {
         answer: 1,
         descripcion: "Un WebHook es una comunicación asíncrona donde el servidor notifica eventos al cliente mediante peticiones HTTP, facilitando la integración entre sistemas.",
         recomendacion: "Estudia casos de uso de WebHooks y cómo implementarlos de forma segura."
-      }
+      },
+      {
+        id: "820e39d4-b339-485e-bed6-e7e16477cf7d",
+        type: "THEORY",
+        question: "Estrategia recomendada de versionado de APIs:",
+        options: ["Versionar en URL o cabecera y evitar romper contratos", "Cambiar el host por versión", "Evitar versionado y forzar actualización inmediata"],
+        answer: 0,
+        descripcion: "Versionar por ruta (v1) o cabeceras y mantener compatibilidad.",
+        recomendacion: "Revisa negociación de contenido y deprecaciones."
+      },
+      {
+        id: "e07b2155-8c5d-4d39-955b-da3795648cc0",
+        type: "THEORY",
+        question: "Código HTTP para petición mal formada del cliente:",
+        options: ["400 Bad Request", "409 Conflict", "422 Unprocessable Entity indica éxito parcial"],
+        answer: 0,
+        descripcion: "400 indica errores de sintaxis/validación del cliente.",
+        recomendacion: "Consulta 4xx y cuándo usar 422/409."
+      },
+      {
+        id: "c9b9402c-43dd-43ed-b728-9c9212096061",
+        type: "THEORY",
+        question: "¿Qué indica 202 Accepted?",
+        options: ["Solicitud aceptada para procesamiento asíncrono", "Recurso creado correctamente", "Debe invalidarse la caché del cliente"],
+        answer: 0,
+        descripcion: "202 Accepted: aceptada pero aún no procesada.",
+        recomendacion: "Útil para jobs asíncronos."
+      },
+      {
+        id: "85b6e38e-fb36-438c-a693-9967b0be291a",
+        type: "THEORY",
+        question: "¿Qué es CORS?",
+        options: ["Mecanismo que controla solicitudes cross-origin con cabeceras", "Método HTTP para compartir recursos", "Técnica de cacheo en proxies"],
+        answer: 0,
+        descripcion: "CORS usa cabeceras Origin y Access-Control-* para permitir/restringir orígenes.",
+        recomendacion: "Configura CORS en gateway/servicio."
+      },
+      {
+        id: "18daf4ec-22a8-456a-97dd-76c56b1df7a6",
+        type: "THEORY",
+        question: "Herramienta común en Java para documentar APIs REST:",
+        options: ["OpenAPI/Swagger con springdoc-openapi", "Thymeleaf", "JUnit"],
+        answer: 0,
+        descripcion: "OpenAPI define contrato; springdoc genera docs/Swagger UI.",
+        recomendacion: "Integra springdoc-openapi en Spring Boot."
+      },
     ]
   },
   {
@@ -620,11 +904,11 @@ public interface Operacion {
         answer: 1,
         descripcion: "El código 201 Created indica que un recurso ha sido creado exitosamente en el servidor.",
         recomendacion: "Estudia los códigos de estado HTTP y su significado, especialmente los relacionados con creación de recursos."
-      }
+      },
     ]
   },
   {
-    topic: "solid y acid",
+    topic: "principios de diseño",
     items: [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000061",
@@ -670,7 +954,34 @@ public interface Operacion {
         answer: 1,
         descripcion: "El principio de Inversión de Dependencias promueve depender de abstracciones y no de implementaciones concretas, facilitando la extensibilidad y el testing.",
         recomendacion: "Estudia la inversión de dependencias y su impacto en la arquitectura de software."
-      }
+      },
+      {
+        id: "98db9b05-5d54-476e-badc-cb52d9f5c049",
+        type: "THEORY",
+        question: "¿Qué persigue el principio DRY?",
+        options: ["Evitar duplicación de conocimiento en el sistema", "Reducir tamaño de binarios", "Eliminar documentación"],
+        answer: 0,
+        descripcion: "DRY busca una única fuente de verdad para cada pieza de conocimiento.",
+        recomendacion: "Detecta duplicación y extrae abstracciones."
+      },
+      {
+        id: "1885deb6-86db-4b85-9515-3e2b04041571",
+        type: "THEORY",
+        question: "En DDD, ¿qué define mejor un Bounded Context?",
+        options: ["Un límite explícito donde un modelo mantiene significado consistente", "Una tabla por microservicio", "Un módulo de UI"],
+        answer: 0,
+        descripcion: "Delimita lenguaje ubicuo y reglas de un modelo específico.",
+        recomendacion: "Revisa context map y agregados."
+      },
+      {
+        id: "fb38f490-ecea-4fbe-a789-23c3bf619899",
+        type: "THEORY",
+        question: "En EDD (event-driven design), ¿qué rol tienen los eventos de dominio?",
+        options: ["Comunican cambios de estado como hechos inmutables", "Transportan comandos ejecutables", "Sincronizan bases en 2PC"],
+        answer: 0,
+        descripcion: "Los eventos representan hechos pasados e inmutables.",
+        recomendacion: "Distingue comandos, eventos y consultas."
+      },
     ]
   },
   {
@@ -720,7 +1031,39 @@ public interface Operacion {
         answer: 0,
         descripcion: "Una desventaja común de SQL al escalar masivamente es la dificultad de escalar horizontalmente (sharding) debido a su esquema rígido y relaciones.",
         recomendacion: "Estudia técnicas de escalabilidad en bases de datos SQL y alternativas NoSQL para grandes volúmenes de datos."
-      }
+      },
+    ]
+  },
+  {
+    topic: "testing",
+    items: [
+      {
+        id: "51920de4-4471-4fd1-b3ea-1ef482bf5f2b",
+        type: "THEORY",
+        question: "¿Cuál es el ciclo clásico de TDD?",
+        options: ["Red, Green, Refactor", "Design, Build, Deploy", "Plan, Do, Check"],
+        answer: 0,
+        descripcion: "Primero la prueba (roja), luego implementación mínima (verde) y refactor.",
+        recomendacion: "Practica TDD con unit tests y refactors pequeños."
+      },
+      {
+        id: "bf4f2cd4-eb20-4bc1-b2b2-ac69fb374fcd",
+        type: "THEORY",
+        question: "¿Para qué sirve el mocking?",
+        options: ["Aislar la unidad reemplazando dependencias externas con dobles de prueba", "Acelerar compilación", "Evitar escribir aserciones"],
+        answer: 0,
+        descripcion: "Mocks simulan colaboraciones sin efectos externos.",
+        recomendacion: "Usa Mockito para crear/verificar mocks."
+      },
+      {
+        id: "dd88f8fd-dcdb-43dd-9394-4d5f1fd6962e",
+        type: "THEORY",
+        question: "Ventaja de integration testing con contenedores frente a bases en memoria:",
+        options: ["Se aproxima más al entorno real del proveedor de datos", "Siempre ejecuta más rápido", "Elimina necesidad de migraciones"],
+        answer: 0,
+        descripcion: "Contenedores del proveedor real reducen diferencias frente a memoria.",
+        recomendacion: "Evalúa Testcontainers y estrategias de datos."
+      },
     ]
   }
 ];
