@@ -162,6 +162,7 @@ export default function Quiz() {
         options: shuffledOptions,
         selected: selectedOpt,
         correctIdx: newCorrectIdx,
+        recomendacion: q.recomendacion || q.recomendation || ''
       }
     ]));
 
@@ -217,6 +218,76 @@ export default function Quiz() {
   const recomendaciones = malas
     .map(a => `Pregunta: ${a.question}\nRecomendación: ${a.options[a.correctIdx]}\n`)
     .join('\n');
+
+  // Generar contenido TXT con el detalle de buenas, malas y recomendaciones
+  function generateResultsText() {
+    const lines = [];
+    lines.push('Resultado de la valoración - ' + new Date().toLocaleString());
+    if (userEmail) lines.push('Participante: ' + userEmail);
+    lines.push('');
+    lines.push(resumen);
+    lines.push('');
+
+    lines.push('--- Preguntas correctas ---');
+    if (buenas.length === 0) {
+      lines.push('Ninguna pregunta correcta.');
+    } else {
+      buenas.forEach((a, i) => {
+        lines.push(`${i + 1}. [${a.topic}] ${a.question}`);
+        lines.push(`Respuesta: ${a.options[a.correctIdx]}`);
+        lines.push('');
+      });
+    }
+
+    lines.push('--- Preguntas incorrectas ---');
+    if (malas.length === 0) {
+      lines.push('Ninguna pregunta incorrecta.');
+    } else {
+      malas.forEach((a, i) => {
+        lines.push(`${i + 1}. [${a.topic}] ${a.question}`);
+        lines.push(`Tu respuesta: ${a.options[a.selected] || 'No respondida'}`);
+        lines.push(`Respuesta correcta: ${a.options[a.correctIdx]}`);
+        if (a.recomendacion) {
+          lines.push(`Recomendación: ${a.recomendacion}`);
+        }
+        lines.push('');
+      });
+    }
+
+    // Añadir bloque final de recomendaciones resumidas
+    lines.push('--- Recomendaciones (resumen) ---');
+    if (malas.length === 0) {
+      lines.push('No hay recomendaciones, todas las preguntas fueron correctas.');
+    } else {
+      malas.forEach((a, i) => {
+        if (a.recomendacion) {
+          lines.push(`${i + 1}. ${a.recomendacion}`);
+        }
+      });
+    }
+
+    return lines.join('\n');
+  }
+
+  function downloadResults() {
+    try {
+      const text = generateResultsText();
+      const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const safeEmail = (userEmail || 'participante').replace(/[^a-z0-9_\-@.]/gi, '_');
+      const filename = `resultado_${safeEmail}_${Date.now()}.txt`;
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error('Error generando archivo de resultados', err);
+      Swal.fire({ title: 'Error', text: 'No se pudo generar el archivo de resultados.', icon: 'error', confirmButtonText: 'OK' });
+    }
+  }
 
   // Render de pantalla de resultados
   // Pantalla de inicio: reglas y recolección de correo
@@ -364,6 +435,23 @@ export default function Quiz() {
             }}
           >
             {emailSent ? 'Correo enviado' : 'Enviar resultados por correo'}
+          </button>
+
+          <button
+            className={UI.classes.sendEmail}
+            onClick={downloadResults}
+            style={{
+              background: '#fff',
+              color: UI.colors.primary,
+              border: `1px solid ${UI.colors.primary}`,
+              borderRadius: '2rem',
+              fontSize: '1.1rem',
+              fontWeight: 700,
+              padding: '0.9rem 2.2rem',
+              cursor: 'pointer'
+            }}
+          >
+            Descargar resultados (TXT)
           </button>
 
           <button className={UI.classes.restart} onClick={handleRestart}>Reiniciar prueba</button>
