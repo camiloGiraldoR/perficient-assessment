@@ -13,6 +13,10 @@ const EMAILJS_SERVICE_ID = 'service_aipxqje';
 const EMAILJS_TEMPLATE_ID = 'template_e40pgr7';
 const EMAILJS_PUBLIC_KEY = 'I4kH_mUf_ybh1i4qz';
 
+// Bandera para pruebas: desactivar envío de correo al comenzar la valoración
+// Cambia a `true` si quieres que se envíe la notificación de inicio.
+const SEND_START_EMAIL = true;
+
 const UI = {
   colors: {
     primary: '#E4002B',
@@ -190,8 +194,9 @@ export default function Quiz() {
       setEmailError('El correo debe ser @perficient.com');
       return;
     }
-    // Intentar notificar el inicio (no bloquear si falla)
-    if (!startNotified) {
+    // Intentar notificar el inicio (no bloquear si falla).
+    // Para pruebas locales podemos desactivar este envío con la bandera `SEND_START_EMAIL`.
+    if (SEND_START_EMAIL && !startNotified) {
       try {
         await sendStartEmail(userEmail);
         setStartNotified(true);

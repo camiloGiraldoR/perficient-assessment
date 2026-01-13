@@ -1,6 +1,6 @@
 /**
  * Senior Developer Assessment Data
- * Contiene 14 temas, 71 preguntas con respuestas.
+ * Contiene 16 temas, 109 preguntas con respuestas.
  */
 
 export const questions = [
@@ -17,15 +17,6 @@ export const questions = [
         recomendacion: "Estudia la sintaxis y los casos de uso de las Sealed Classes en Java 17+ y revisa ejemplos prácticos de jerarquías selladas."
       },
       {
-        id: "b1a7c2e0-1a11-4f56-9abc-000000000002",
-        type: "THEORY",
-        question: "¿Qué característica de Java 21 permite extraer componentes de un Record en un switch?",
-        options: ["Record Patterns", "Permite herencia múltiple entre clases y registros", "Habilita reflexión privada sin restricciones en tiempo de ejecución"],
-        answer: 0,
-        descripcion: "Record Patterns es una característica que permite descomponer y extraer los componentes de un Record directamente en una expresión switch, facilitando el pattern matching y el manejo de datos inmutables.",
-        recomendacion: "Repasa el uso de Records y Pattern Matching en Java 21, especialmente cómo se integran en las sentencias switch."
-      },
-      {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000003",
         type: "THEORY",
         question: "¿Para qué se introdujo el concepto de Scoped Values?",
@@ -37,20 +28,33 @@ export const questions = [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000004",
         type: "THEORY",
-        question: "¿Qué permite el Pattern Matching for switch?",
+        question: "¿Qué nos permite el Pattern Matching para switch?",
         options: ["Permite herencia múltiple entre clases y registros", "Evaluar tipos y condiciones (guarded patterns) en las ramas del switch", "Sustituye completamente a las clases abstractas en Java"],
         answer: 1,
         descripcion: "El Pattern Matching for switch permite evaluar tipos y condiciones dentro de las ramas del switch, haciendo el código más expresivo y seguro al evitar castings manuales y errores de tipo.",
         recomendacion: "Estudia cómo funciona el pattern matching en switch y practica con ejemplos que incluyan guarded patterns y múltiples tipos."
       },
       {
-        id: "b1a7c2e0-1a11-4f56-9abc-000000000005",
-        type: "THEORY",
-        question: "¿Qué es un Record en Java?",
-        options: ["Sustituye completamente a las clases abstractas en Java", "Una clase inmutable transparente que actúa como portadora de datos", "Permite herencia múltiple entre clases y registros"],
-        answer: 1,
-        descripcion: "Un Record en Java es una clase inmutable y transparente que actúa como portadora de datos, generando automáticamente métodos como equals, hashCode y toString.",
-        recomendacion: "Revisa la sintaxis de los Records, sus ventajas y limitaciones, y cómo se diferencian de las clases tradicionales."
+        id: 'b1a7c2e0-1a11-4f56-9abc-000000000005',
+        type: 'CHALLENGE',
+        question: '¿Qué snippet define correctamente un Record y descompone sus componentes en un switch?',
+        options: [
+          `record Punto(int x, int y) {}
+Object o = new Punto(3, 4);
+switch (o) {
+  case Punto(int x, int y) -> System.out.println(x + y);
+  default -> {}
+}`,
+          `class Punto { int x; int y; }
+Object o = new Punto();
+switch (o) {
+  case Punto p -> System.out.println(p.x + p.y); // sin record patterns
+  default -> {}
+}`
+        ],
+        answer: 0,
+        descripcion: 'Los Records son portadores de datos inmutables y pueden descomponerse con Record Patterns en switch.',
+        recomendacion: 'Usa Records para datos y apóyate en pattern matching para descomposición.'
       },
       {
         id: "250e39d6-8a7d-41f9-821a-b75698f2ff62",
@@ -80,22 +84,17 @@ export const questions = [
         recomendacion: "Usa @FunctionalInterface para señalarlas."
       },
       {
-        id: "7fc9acf2-94f8-474a-9a36-965ba4132d10",
-        type: "THEORY",
-        question: "¿Qué implica que una variable sea effectively final en una lambda?",
-        options: ["Puede capturarse si su referencia no cambia", "Debe ser estática", "No puede usarse en streams"],
+        id: 'd4f5e2b3-3c4e-4f7a- ninth- 9c6e-2f4e5d6a7b8c',
+        type: 'THEORY',
+        question: '¿Cuál es la diferencia principal entre una excepción chequeada y una no chequeada en Java?',
+        options: [
+          'Las chequeadas deben declararse o manejarse explícitamente, las no chequeadas son opcionales',
+          'Las no chequeadas no pueden heredarse, las chequeadas sí',
+          'Las chequeadas nunca pueden lanzarse en tiempo de ejecución'
+        ],
         answer: 0,
-        descripcion: "Las lambdas sólo capturan variables cuyo valor de referencia no cambia.",
-        recomendacion: "Revisa captura de variables en lambdas."
-      },
-      {
-        id: "96bc4711-cbf1-4293-9011-53ce19c6972d",
-        type: "THEORY",
-        question: "¿Buena práctica con excepciones chequeadas?",
-        options: ["Declararlas o manejarlas cerca del origen", "Ignorarlas con //NOSONAR", "Convertirlas siempre a RuntimeException sin causa"],
-        answer: 0,
-        descripcion: "Manejar/declarar cerca del origen mantiene la claridad.",
-        recomendacion: "Revisa throws, try/catch y wrapping preservando cause."
+        descripcion: 'Las excepciones chequeadas (como IOException) deben declararse con throws o manejarse en un bloque try/catch, mientras que las no chequeadas (RuntimeException) no requieren declaración explícita.',
+        recomendacion: 'Revisa la jerarquía de Exception en Java y cuándo usar cada tipo para un manejo adecuado de errores.'
       },
       {
         id: "801b6697-8b7e-439d-8ed5-844339476f4a",
@@ -109,7 +108,7 @@ export const questions = [
       {
         id: "94fbb6a2-4323-49a1-a2a0-6fd2ae6877ea",
         type: "THEORY",
-        question: "¿Qué principio promueve exponer comportamiento y ocultar estado?",
+        question: "¿Qué principio en POO promueve exponer comportamiento y ocultar estado?",
         options: ["Encapsulamiento", "Herencia", "Polimorfismo"],
         answer: 0,
         descripcion: "El encapsulamiento oculta estado interno y expone operaciones controladas.",
@@ -183,7 +182,7 @@ export const questions = [
         descripcion: "Cuando un Virtual Thread realiza una operación de I/O bloqueante, la JVM lo suspende y libera el hilo de plataforma (carrier), permitiendo que otros hilos virtuales usen ese recurso.",
         recomendacion: "Revisa cómo la JVM gestiona los Virtual Threads y el impacto de operaciones bloqueantes en la concurrencia moderna."
       },
-      {
+      /*{
         id: "b1a7c2e0-1a11-4f56-9abc-000000000008",
         type: "THEORY",
         question: "¿Cuál es el objetivo de la Structured Concurrency?",
@@ -201,7 +200,7 @@ export const questions = [
         descripcion: "StructuredTaskScope es la clase principal para orquestar Structured Concurrency en Java, permitiendo gestionar y supervisar grupos de tareas concurrentes de forma estructurada.",
         recomendacion: "Revisa la documentación y ejemplos de StructuredTaskScope para entender su uso en la gestión de tareas concurrentes."
       },
-      {
+      /*{
         id: "b1a7c2e0-1a11-4f56-9abc-000000000010",
         type: "THEORY",
         question: "¿Cuál es la principal ventaja de rendimiento de los Virtual Threads?",
@@ -209,7 +208,7 @@ export const questions = [
         answer: 1,
         descripcion: "La principal ventaja de los Virtual Threads es que permiten manejar una gran cantidad de tareas que esperan por I/O usando muy poca memoria, facilitando la escalabilidad.",
         recomendacion: "Estudia casos de uso donde los Virtual Threads mejoran la escalabilidad y el consumo de recursos en aplicaciones Java."
-      },
+      },*/
     ]
   },
   {
@@ -228,7 +227,7 @@ export const questions = [
         id: "b1a7c2e0-1a11-4f56-9abc-000000000012",
         type: "THEORY",
         question: "En Java, ¿qué interfaz representa un resultado asíncrono que puede completarse manualmente?",
-        options: ["El modelo asíncrono reduce el consumo de CPU en tareas intensivas de cálculo por sí mismo", "CompletableFuture", "CompletableFuture garantiza orden estricto de ejecución entre tareas encadenadas"],
+        options: ["El modelo asíncrono reduce el consumo de CPU en tareas intensivas de cálculo por sí mismo", "CompletableFuture", "VirtualPoolFutureExecution"],
         answer: 1,
         descripcion: "CompletableFuture es una interfaz en Java que permite representar y completar manualmente resultados asíncronos, facilitando la composición de tareas y el manejo de callbacks.",
         recomendacion: "Revisa la API de CompletableFuture y practica su uso para componer tareas asíncronas en Java."
@@ -251,15 +250,15 @@ export const questions = [
         descripcion: "El método .thenCompose() permite encadenar dos CompletableFuture donde el segundo depende del resultado del primero, facilitando flujos asíncronos dependientes.",
         recomendacion: "Practica el uso de thenCompose y la composición de flujos asíncronos en Java."
       },
-      {
-        id: "b1a7c2e0-1a11-4f56-9abc-000000000015",
-        type: "THEORY",
-        question: "¿Qué es el 'Context Switching' y por qué afecta más al modelo síncrono?",
-        options: ["Las APIs non-blocking nunca devuelven errores al cliente", "Es el costo del SO al alternar entre hilos pesados; el modelo asíncrono/virtual lo minimiza", "CompletableFuture garantiza orden estricto de ejecución entre tareas encadenadas"],
-        answer: 1,
-        descripcion: "El 'Context Switching' es el costo que incurre el sistema operativo al alternar entre hilos pesados, lo que afecta el rendimiento en modelos síncronos. Los modelos asíncronos o con virtual threads minimizan este costo.",
-        recomendacion: "Estudia cómo funciona el context switching y por qué los modelos asíncronos y virtual threads son más eficientes en escenarios de alta concurrencia."
-      },
+      /* {
+         id: "b1a7c2e0-1a11-4f56-9abc-000000000015",
+         type: "THEORY",
+         question: "¿Qué es el 'Context Switching' y por qué afecta más al modelo síncrono?",
+         options: ["Las APIs non-blocking nunca devuelven errores al cliente", "Es el costo del SO al alternar entre hilos pesados; el modelo asíncrono/virtual lo minimiza", "CompletableFuture garantiza orden estricto de ejecución entre tareas encadenadas"],
+         answer: 1,
+         descripcion: "El 'Context Switching' es el costo que incurre el sistema operativo al alternar entre hilos pesados, lo que afecta el rendimiento en modelos síncronos. Los modelos asíncronos o con virtual threads minimizan este costo.",
+         recomendacion: "Estudia cómo funciona el context switching y por qué los modelos asíncronos y virtual threads son más eficientes en escenarios de alta concurrencia."
+       },*/
     ]
   },
   {
@@ -274,6 +273,21 @@ export const questions = [
         descripcion: "La inyección por constructor permite que los objetos sean inmutables y facilita la escritura de pruebas unitarias, ya que las dependencias se definen explícitamente en el constructor.",
         recomendacion: "Revisa ejemplos de inyección por constructor en Spring y compara con la inyección por campo para entender sus ventajas."
       },
+
+      {
+        id: 'b1a7c2e0-1a11-4f56-9abc-00000000A017',
+        type: 'THEORY',
+        question: 'Un banco necesita procesar más de 3 millones de archivos a cierta hora, gestionar su contenido y guardarlo en una base de datos. ¿Qué módulo de Spring recomendarías?',
+        options: [
+          'Spring Cloud',
+          'Spring Batch',
+          'Spring Integration'
+        ],
+        answer: 1,
+        descripcion: 'Spring Batch está diseñado para procesamiento masivo de datos en lotes, con soporte para transacciones, reintentos, particionamiento y programación, ideal para tareas como procesar millones de archivos y persistir datos.',
+        recomendacion: 'Revisa la arquitectura de Spring Batch, sus componentes (Job, Step, ItemReader, ItemProcessor, ItemWriter) y cómo integrarlo con bases de datos y planificadores.'
+      },
+
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000017",
         type: "THEORY",
@@ -340,7 +354,7 @@ export const questions = [
     ]
   },
   {
-    topic: "sso y como podriamos implementarlo con java",
+    topic: "SSO y como podriamos implementarlo con java",
     items: [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000021",
@@ -519,25 +533,54 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000033",
         type: "THEORY",
         question: "¿Qué es la 'Inmutabilidad' en programación funcional?",
-        options: ["flatMap ordena los elementos y elimina duplicados al aplanar", "Un estado que no puede ser modificado después de su creación", "La inmutabilidad impide crear nuevos objetos a partir de existentes"],
+        options: ["Inmutabilidad ordena los elementos y elimina duplicados al aplanar", "Un estado que no puede ser modificado después de su creación", "La inmutabilidad impide crear nuevos objetos a partir de existentes"],
         answer: 1,
         descripcion: "La inmutabilidad implica que el estado de un objeto no puede ser modificado después de su creación, lo que reduce errores y facilita la concurrencia.",
         recomendacion: "Estudia los beneficios de la inmutabilidad y cómo implementarla en Java."
+      },
+
+      {
+        id: 'b1a7c2e0-1a11-4f56-9abc-000000000036',
+        type: 'THEORY',
+        question: 'Si tengo un Optional<String> y necesito devolver un valor por defecto cuando está vacío, ¿qué método de Optional me podría ayudar?',
+        options: [
+          'map()',
+          'orElse()',
+          'filter()'
+        ],
+        answer: 1,
+        descripcion: 'El método orElse() devuelve el valor contenido si está presente, o el valor por defecto especificado si el Optional está vacío.',
+        recomendacion: 'Revisa los métodos orElse(), orElseGet() y orElseThrow() para manejar valores opcionales de forma segura.'
       },
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000034",
         type: "THEORY",
         question: "¿Cuál es la diferencia entre un Stream y una Collection?",
-        options: ["Una interfaz funcional puede tener múltiples métodos abstractos si están sobrecargados", "El Stream es una vista de datos que no altera la fuente original", "flatMap ordena los elementos y elimina duplicados al aplanar"],
+        options: ["Una interfaz Collection puede tener múltiples métodos abstractos si están sobrecargados", "El Stream es una vista de datos que no altera la fuente original", "Collection ordena los elementos y almacena solo los duplicados"],
         answer: 1,
         descripcion: "Un Stream es una vista de datos que permite procesar elementos de forma funcional sin modificar la fuente original, mientras que una Collection almacena los datos.",
         recomendacion: "Revisa ejemplos de uso de streams y colecciones, y sus diferencias clave en Java."
       },
+
+{
+  id: 'b1a7c2e0-1a11-4f56-9abc-000000000037',
+  type: 'THEORY',
+  question: 'Si tengo un Optional<String> y quiero ejecutar una acción cuando hay valor y otra cuando está vacío, ¿qué método de Optional me podría ayudar?',
+  options: [
+    'orElse()',
+    'ifPresentOrElse()',
+    'map()'
+  ],
+  answer: 1,
+  descripcion: 'El método ifPresentOrElse() permite ejecutar una acción si el valor está presente y otra acción alternativa si el Optional está vacío.',
+  recomendacion: 'Revisa la API de Optional en Java 9+, especialmente ifPresentOrElse() para manejar flujos condicionales sin usar if tradicionales.'
+},
+
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000035",
         type: "THEORY",
         question: "¿Qué interfaz funcional usarías para una función que recibe un valor y devuelve un booleano?",
-        options: ["flatMap ordena los elementos y elimina duplicados al aplanar", "Una interfaz funcional puede tener múltiples métodos abstractos si están sobrecargados", "Predicate"],
+        options: ["flatMap ordena los elementos y elimina duplicados al aplanar", "Una interfaz funcional Collection puede tener múltiples métodos abstractos si están sobrecargados", "Predicate"],
         answer: 2,
         descripcion: "Predicate es la interfaz funcional utilizada para funciones que reciben un valor y devuelven un booleano, común en operaciones de filtrado.",
         recomendacion: "Estudia la interfaz Predicate y su uso en métodos como filter en streams de Java."
@@ -545,7 +588,7 @@ public interface Operacion {
       {
         id: "6e760523-849c-40ea-86d6-c70494a3d2b8",
         type: "THEORY",
-        question: "¿Diferencia clave entre PF y POO?",
+        question: "¿Diferencia clave entre Programacion Funcional y POO?",
         options: ["PF favorece inmutabilidad/funciones puras; POO modela objetos con estado", "POO no permite composición de funciones", "PF requiere threads dedicados"],
         answer: 0,
         descripcion: "PF evita efectos secundarios e inmutabilidad; POO gestiona estado/behaviour.",
@@ -619,7 +662,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000038",
         type: "THEORY",
         question: "¿Cuál es el propósito del patrón 'Builder'?",
-        options: ["Construir objetos complejos paso a paso", "Facade modifica el comportamiento interno del subsistema sin cambiar la interfaz", "Observer garantiza entrega exactamente una vez sin mecanismos adicionales"],
+        options: ["Construir objetos complejos paso a paso", "Modifica el comportamiento interno del subsistema sin cambiar la interfaz", "garantiza entrega exactamente una vez sin mecanismos adicionales"],
         answer: 0,
         descripcion: "El patrón Builder permite construir objetos complejos paso a paso, separando la construcción de la representación final.",
         recomendacion: "Estudia el patrón Builder y su uso para crear objetos inmutables o con muchas opciones de configuración."
@@ -628,7 +671,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000039",
         type: "THEORY",
         question: "¿Qué patrón actúa como un envoltorio que oculta la complejidad de un subsistema?",
-        options: ["Facade", "Facade modifica el comportamiento interno del subsistema sin cambiar la interfaz", "Observer garantiza entrega exactamente una vez sin mecanismos adicionales"],
+        options: ["Facade", "Factory modifica el comportamiento interno del subsistema sin cambiar la interfaz", "Builder garantiza entrega exactamente una vez sin mecanismos adicionales"],
         answer: 0,
         descripcion: "El patrón Facade actúa como un envoltorio que oculta la complejidad de un subsistema, proporcionando una interfaz simple y unificada.",
         recomendacion: "Revisa ejemplos del patrón Facade y cómo simplifica la interacción con sistemas complejos."
@@ -637,7 +680,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000040",
         type: "THEORY",
         question: "¿Cuál es la diferencia entre Decorator y Proxy?",
-        options: ["Observer garantiza entrega exactamente una vez sin mecanismos adicionales", "Decorator añade responsabilidades dinámicamente; Proxy controla el acceso", "Strategy crea una instancia única compartida por toda la aplicación"],
+        options: ["Decorator garantiza entrega exactamente una vez sin mecanismos adicionales", "Decorator añade responsabilidades dinámicamente; Proxy controla el acceso", "Proxy crea una instancia única compartida por toda la aplicación"],
         answer: 1,
         descripcion: "Decorator añade responsabilidades dinámicamente a un objeto, mientras que Proxy controla el acceso o añade lógica adicional al interactuar con el objeto real.",
         recomendacion: "Estudia los patrones Decorator y Proxy, y revisa ejemplos para entender sus diferencias y aplicaciones."
@@ -651,7 +694,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000041",
         type: "THEORY",
         question: "¿Qué permite el patrón 'Sidecar'?",
-        options: ["CQRS impide lecturas en consistencia eventual por diseño", "Añadir capacidades (logging, proxy) a un contenedor sin alterar el código", "Saga ejecuta una transacción distribuida única y atómica"],
+        options: ["Impide lecturas en consistencia eventual por diseño", "Añadir capacidades (logging, proxy) a un contenedor sin alterar el código", "Ejecuta una transacción distribuida única y atómica"],
         answer: 1,
         descripcion: "El patrón Sidecar permite añadir capacidades como logging o proxy a un contenedor sin modificar el código del microservicio, facilitando la extensión y mantenimiento.",
         recomendacion: "Estudia el patrón Sidecar y revisa ejemplos de su uso en arquitecturas de microservicios y Kubernetes."
@@ -660,7 +703,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000042",
         type: "THEORY",
         question: "¿Para qué sirve el patrón 'CQRS'?",
-        options: ["Saga ejecuta una transacción distribuida única y atómica", "Separar las operaciones de lectura de las de escritura", "Sidecar reemplaza el microservicio principal durante fallos"],
+        options: ["Ejecuta una transacción distribuida única y atómica", "Separar las operaciones de lectura de las de escritura", "Reemplaza el microservicio principal durante fallos"],
         answer: 1,
         descripcion: "El patrón CQRS separa las operaciones de lectura y escritura, permitiendo optimizar y escalar cada una de forma independiente.",
         recomendacion: "Revisa ejemplos de CQRS y cómo se implementa en sistemas distribuidos."
@@ -678,7 +721,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000044",
         type: "THEORY",
         question: "¿Qué problema resuelve el patrón 'API Gateway'?",
-        options: ["Sidecar reemplaza el microservicio principal durante fallos", "Punto único de entrada, ruteo y agregación para microservicios", "Saga ejecuta una transacción distribuida única y atómica"],
+        options: ["Gateway reemplaza el microservicio principal durante fallos", "Punto único de entrada, ruteo y agregación para microservicios", "Gateway es sincorno y ejecuta una transacción distribuida única y atómica"],
         answer: 1,
         descripcion: "El patrón API Gateway proporciona un punto único de entrada, ruteo y agregación para microservicios, simplificando la gestión y seguridad.",
         recomendacion: "Revisa la arquitectura de API Gateway y su uso en sistemas de microservicios."
@@ -687,7 +730,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000045",
         type: "THEORY",
         question: "¿Qué es el 'Event Sourcing'?",
-        options: ["Sidecar reemplaza el microservicio principal durante fallos", "Persistir el estado de un objeto como una secuencia de eventos inmutables", "CQRS impide lecturas en consistencia eventual por diseño"],
+        options: ["Reemplaza el microservicio principal durante fallos", "Persistir el estado de un objeto como una secuencia de eventos inmutables", "Event Sourcing impide lecturas en consistencia eventual por diseño"],
         answer: 1,
         descripcion: "Event Sourcing persiste el estado de un objeto como una secuencia de eventos inmutables, permitiendo reconstruir el estado y auditar cambios.",
         recomendacion: "Estudia el patrón Event Sourcing y revisa ejemplos de su implementación en sistemas distribuidos."
@@ -728,7 +771,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000047",
         type: "THEORY",
         question: "¿Cuál es la principal complejidad de los Microservicios?",
-        options: ["Un Monolito Modular requiere desplegar cada módulo por separado", "La gestión de la red, latencia y consistencia distribuida", "El Teorema CAP garantiza las tres propiedades cuando hay replicación síncrona"],
+        options: ["Requiere desplegar cada módulo por separado", "La gestión de la red, latencia y consistencia distribuida", "El Teorema CAP garantiza las tres propiedades cuando hay replicación síncrona"],
         answer: 1,
         descripcion: "La principal complejidad de los microservicios radica en la gestión de la red, la latencia y la consistencia distribuida entre servicios independientes.",
         recomendacion: "Revisa los retos de la arquitectura de microservicios y estrategias para gestionar la complejidad distribuida."
@@ -755,7 +798,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000050",
         type: "THEORY",
         question: "¿Qué es la 'Arquitectura Hexagonal' (Ports & Adapters)?",
-        options: ["Microservicios eliminan la latencia de red mediante colas internas", "Desacoplar el núcleo de negocio de las tecnologías externas", "El Teorema CAP garantiza las tres propiedades cuando hay replicación síncrona"],
+        options: ["Arquitectura que eliminan la latencia de red mediante colas internas", "Desacoplar el núcleo de negocio de las tecnologías externas", "Arquitectura que facilita la replicación síncrona sobre la asincrona"],
         answer: 1,
         descripcion: "La Arquitectura Hexagonal desacopla el núcleo de negocio de las tecnologías externas, facilitando la prueba y evolución del sistema.",
         recomendacion: "Estudia la Arquitectura Hexagonal y revisa ejemplos de implementación en proyectos Java."
@@ -792,7 +835,7 @@ public interface Operacion {
         descripcion: "GraphQL permite que el cliente solicite exactamente los datos que necesita, optimizando el consumo de recursos y la flexibilidad de las APIs.",
         recomendacion: "Estudia la sintaxis y ventajas de GraphQL frente a REST."
       },
-      {
+      /*{
         id: "b1a7c2e0-1a11-4f56-9abc-000000000054",
         type: "THEORY",
         question: "¿Qué son los niveles del 'Richardson Maturity Model'?",
@@ -800,12 +843,12 @@ public interface Operacion {
         answer: 1,
         descripcion: "El Richardson Maturity Model es una escala para medir qué tan fiel es una API a los principios REST, desde recursos simples hasta HATEOAS.",
         recomendacion: "Revisa los niveles del Richardson Maturity Model y ejemplos de cada uno."
-      },
+      },*/
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000055",
         type: "THEORY",
         question: "¿Qué es un WebHook?",
-        options: ["GraphQL sustituye completamente a SQL en la capa de persistencia", "Comunicación asíncrona donde el servidor notifica eventos al cliente", "gRPC funciona nativamente en navegadores sin ningún proxy o pasarela"],
+        options: ["Sustituye completamente a SQL en la capa de persistencia", "Comunicación asíncrona donde el servidor notifica eventos al cliente", "Funcion nativa en navegadores sin ningún proxy o pasarela"],
         answer: 1,
         descripcion: "Un WebHook es una comunicación asíncrona donde el servidor notifica eventos al cliente mediante peticiones HTTP, facilitando la integración entre sistemas.",
         recomendacion: "Estudia casos de uso de WebHooks y cómo implementarlos de forma segura."
@@ -850,7 +893,7 @@ public interface Operacion {
         id: "18daf4ec-22a8-456a-97dd-76c56b1df7a6",
         type: "THEORY",
         question: "Herramienta común en Java para documentar APIs REST:",
-        options: ["OpenAPI/Swagger con springdoc-openapi", "Thymeleaf", "JUnit"],
+        options: ["OpenAPI/Swagger con springdoc-openapi", "Thymeleaf", "JUnit/Mockito/Postman"],
         answer: 0,
         descripcion: "OpenAPI define contrato; springdoc genera docs/Swagger UI.",
         recomendacion: "Integra springdoc-openapi en Spring Boot."
@@ -858,7 +901,7 @@ public interface Operacion {
     ]
   },
   {
-    topic: "métodos http",
+    topic: "Métodos HTTP",
     items: [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000056",
@@ -908,7 +951,7 @@ public interface Operacion {
     ]
   },
   {
-    topic: "principios de diseño",
+    topic: "Principios de diseño",
     items: [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000061",
@@ -985,13 +1028,13 @@ public interface Operacion {
     ]
   },
   {
-    topic: "sql vs nosql",
+    topic: "Sql vs NoSQL",
     items: [
       {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000066",
         type: "THEORY",
         question: "¿Cuál es la principal característica de las bases de datos SQL?",
-        options: ["Redis se usa principalmente para almacenar archivos binarios grandes", "Esquema rígido y transacciones ACID robustas", "SQL no soporta transacciones distribuidas entre tablas"],
+        options: ["Se usa principalmente para almacenar archivos binarios grandes", "Esquema rígido y transacciones ACID robustas", "SQL no soporta transacciones distribuidas entre tablas"],
         answer: 1,
         descripcion: "Las bases de datos SQL se caracterizan por tener un esquema rígido y soportar transacciones ACID robustas, garantizando integridad y consistencia.",
         recomendacion: "Estudia los conceptos de esquema y transacciones ACID en bases de datos relacionales."
@@ -1000,7 +1043,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000067",
         type: "THEORY",
         question: "¿Qué significa que NoSQL sea 'Schemaless'?",
-        options: ["Redis se usa principalmente para almacenar archivos binarios grandes", "Que no requiere un esquema fijo previo a la inserción", "SQL no soporta transacciones distribuidas entre tablas"],
+        options: ["Caracteristica principal para almacenar archivos binarios grandes", "Que no requiere un esquema fijo previo a la inserción", "SQL no soporta transacciones distribuidas entre tablas"],
         answer: 1,
         descripcion: "NoSQL es 'schemaless' porque no requiere un esquema fijo antes de insertar datos, permitiendo flexibilidad en la estructura de la información.",
         recomendacion: "Revisa ejemplos de bases de datos NoSQL y cómo gestionan la flexibilidad de los datos."
@@ -1018,7 +1061,7 @@ public interface Operacion {
         id: "b1a7c2e0-1a11-4f56-9abc-000000000069",
         type: "THEORY",
         question: "¿Qué base de datos NoSQL es orientada a Documentos?",
-        options: ["Redis se usa principalmente para almacenar archivos binarios grandes", "MongoDB", "NoSQL requiere esquema rígido para lecturas eficientes"],
+        options: ["Redis", "MongoDB", "Cassandra"],
         answer: 1,
         descripcion: "MongoDB es una base de datos NoSQL orientada a documentos, permitiendo almacenar y consultar datos en formato JSON flexible.",
         recomendacion: "Revisa la estructura y ventajas de las bases de datos orientadas a documentos como MongoDB."
